@@ -27,7 +27,7 @@ const Navbar = () => {
                   Portfolio
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/press"
                   className="inline-block text-gray-700 hover:text-custom-test px-3 py-2 text-sm font-medium transform hover:scale-125 transition-transform duration-300"
                 >
@@ -40,7 +40,7 @@ const Navbar = () => {
                 >
                   Accolades
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/about"
