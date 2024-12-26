@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const plugin = require('tailwindcss/plugin');
 
 export default {
   content: [
@@ -11,7 +12,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        "custom-test": "#F25430"
+        "orange-1": "#F25430",
+        "orange-2": "#A63921"
       },
     },
   },
