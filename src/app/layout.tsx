@@ -10,10 +10,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${frank.variable} ${prata.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${frank.variable} ${prata.variable} antialiased flex flex-col h-screen`}
       >
         <Navbar />
-        {children}
+        <main className="flex-1 overflow-auto">
+          {children}
+        </main>
       </body>
     </html>
   );
