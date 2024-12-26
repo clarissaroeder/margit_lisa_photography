@@ -1,7 +1,9 @@
+import Portfolio
+ from "../ui/portfolio";
 const Page = () => {
   return (
-    <p>Coming Soon</p>
-  )
+      <Portfolio />
+  );
 }
 
 export default Page;
