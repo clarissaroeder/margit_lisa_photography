@@ -1,92 +1,85 @@
 "use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-// import CarouselModal from '../../ui/carouselModal';
-
-interface Collection {
-  id: string;
-  title: string;
-  images: string[];
-}
-
-const collections: Collection[] = [
-  {
-    id: 'architektur',
-    title: 'Architektur',
-    images: ['big_stage_lr', 'catwalk', 'circles-1', 'discussion_lr', 'oyster_lr', 'the_observer', 'walk_this_way-1']
-  },
-  {
-    id: 'sw',
-    title: 'Schwarz-Weiß',
-    images: ['nh1_lr', 'nh2_lr', 'nh3_lr', 'phaneo_1', 'phaneo_2', 'phaneo_3', 'rendezvous', 'smokingbreak']
-  },
-  {
-    id: 'composing',
-    title: 'Composing',
-    images: ['fantasy', 'good_vibration-1', 'grün3', 'morningwalk', 'photowalk', 'Seaflowers', 'venice']
-  },
-  { 
-    id: 'wimmelbilder',
-    title: 'Wimmelbilder',
-    images: ['cityscape-1', 'Leipzig', 'siena_lr']
-  },
-];
+import { useState, useEffect } from 'react';
+import { RowsPhotoAlbum } from "react-photo-album";
+import "react-photo-album/rows.css";
 
 interface CollectionProps {
-  collectionID: string;
+  collection: string;
 }
 
-const Collection = ({ collectionID }: CollectionProps) => {
-  const collection = collections.find(c => c.id == collectionID)
+interface ImageData {
+  public_id: string;
+  secure_url: string;
+  width: number;
+  height: number;
+  format: string;
+  description?: string;
+}
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const images = collection?.images || [];
+interface Photo {
+  src: string;
+  width: number;
+  height: number;
+  alt?: string;
+  title?: string;
+}
 
-  const openModal = (image: string) => {
-    setCurrentImage(image);
-    setIsModalOpen(true);
-  };
+const Collection: React.FC<CollectionProps> = ({ collection }) => {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(null);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setCurrentImage(null);
-  };
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(`/api/portfolio/collections/${collection}`);
+        const data = await response.json();
 
-  if (!collection) return  <div>The collection was not found.</div>;
-  // if (!data && collection) return <div>Loading collection...</div>;
+        if (response.ok) {
+          setImages(data.images);
+          setIsLoading(false);
+        } else {
+          setError(data.error || 'Failed to load images.');
+          setIsLoading(false);
+        }
+      } catch (err) {
+        console.error('Error fetching images:', err);
+        setError('An unexpected error occurred.');
+        setIsLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, [collection]);
+
+  if (isLoading) return <div className="text-center py-8">Loading collection...</div>;
+  if (error) return <div className="text-center text-red-500 py-8">Error: {error}</div>;
+
+  const photos: Photo[] = images.map((img) => ({
+    src: img.secure_url, 
+    width: img.width, 
+    height: img.height, 
+    alt: img.description || "Gallery Image", 
+    title: img.description || "",
+  }));
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Optional: Collection Title */}
       {/* <h1 className="text-4xl font-bold mb-8 text-center capitalize">
         {collection.title} Collection
       </h1> */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {collection.images.map((image, index) => (
-          <div
-            key={index}
-            className="relative cursor-pointer"
-            onClick={() => openModal(image)}
-          >
-            <div className="w-full h-48 relative">
-              <Image
-                src={`/photos/${collection.id}/${image}.jpg`}
-                alt={image}
-                fill
-                objectFit="cover"
-                // placeholder="blur"
-                // blurDataURL=''
-              />
-            </div>
-            {/* <p className="mt-2 text-center">{image || 'Untitled'}</p> */}
-          </div>
-        ))}
-      </div>
+      <RowsPhotoAlbum 
+        photos={photos}
+        // targetRowHeight={150}
+        rowConstraints={{ maxPhotos: 3 }}
+      />;
     </div>
-  )
-}
-
+  );
+};
 
 export default Collection;
