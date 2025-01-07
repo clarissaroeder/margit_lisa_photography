@@ -77,7 +77,7 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
         photos={photos}
         // targetRowHeight={150}
         rowConstraints={{ maxPhotos: 3 }}
-      />;
+      />
     </div>
   );
 };
