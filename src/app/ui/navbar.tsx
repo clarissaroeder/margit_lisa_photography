@@ -37,9 +37,9 @@ const Navbar = () => {
                       href={link.href}
                       className={clsx(
                         "inline-block px-3 py-2 text-sm font-medium transition-transform duration-300",
-                        "hover:text-orange-1",
+                        "hover:text-custom-orange-1",
                         {
-                          "text-orange-2": isActive,
+                          "text-custom-orange-2": isActive,
                           "text-gray-700": !isActive,
                           "transform hover:scale-125": true,
                         }
