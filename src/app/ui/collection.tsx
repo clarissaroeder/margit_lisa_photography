@@ -8,6 +8,8 @@ import {
   RowsPhotoAlbum,
 } from "react-photo-album";
 import "react-photo-album/rows.css";
+import LoadingSpinner from './loadingSpinner';
+import ErrorMessage from './errorMessage';
 
 interface CollectionProps {
   collection: string;
@@ -77,13 +79,15 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
         const response = await fetch(`/api/portfolio/collections/${collection}`);
         const data = await response.json();
 
+        throw new Error('Test error');
+
         if (response.ok) {
           setImages(data.images);
         } else {
           setError(data.error || 'Failed to load images.');
         }
-      } catch (err) {
-        console.error('Error fetching images:', err);
+      } catch (error) {
+        console.error('Error fetching images:', error); // Debugging
         setError('An unexpected error occurred.');
       } finally {
         setIsLoading(false);
@@ -94,11 +98,16 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
   }, [collection]);
 
   if (isLoading) {
-    return <div className="text-center py-8">Loading collection...</div>;
+    return (
+      <LoadingSpinner
+        size="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 xl:h-12 xl:w-12"
+        color="text-custom-orange-1"
+      />
+    );
   }
 
   if (error) {
-    return <div className="text-center text-red-500 py-8">Error: {error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   const photos: Photo[] = images.map((img) => ({
