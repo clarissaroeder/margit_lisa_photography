@@ -1,7 +1,9 @@
+import ContactForm from "../ui/contactForm";
+
 const Page = () => {
   return (
-    <p>Coming Soon</p>
-  )
+    <ContactForm />
+  );
 }
 
 export default Page;
