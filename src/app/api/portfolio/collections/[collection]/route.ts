@@ -20,7 +20,7 @@ interface CloudinaryResource {
  * Fetches all images within a specific collection (folder) from Cloudinary.
  */
 export async function GET(
-  request: Request,
+  req: Request,
   { params }: { params: { collection: string } }
 ) {
   const collection = (await params).collection;

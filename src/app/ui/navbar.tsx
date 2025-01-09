@@ -2,15 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import clsx from "clsx"
+import clsx from "clsx";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   const navLinks = [
     { href: "/portfolio", label: "Portfolio" },
-    // { href: "/press", label: "Press" },
-    // { href: "/accolades", label: "Accolades" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ]
@@ -22,7 +20,11 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 font-[family-name:var(--font-geist-mono)]">
             <Link href="/" className="text-3xl font-bold">
-              Margit Lisa Photography
+            <div className="flex items-center">
+              <span>Margit Lisa</span>
+              <span className="hidden md:inline-block border-l border-gray-400 h-10 mx-4"></span>
+              <span className="font-thin font-[family-name:var(--font-geist-sans)]">Fine Photography</span>
+            </div>
             </Link>
           </div>
 
