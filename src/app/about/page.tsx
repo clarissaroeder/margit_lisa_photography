@@ -1,6 +1,8 @@
+import About from "../ui/about";
+
 const Page = () => {
   return (
-    <p>Coming Soon</p>
+    <About />
   )
 }
 
