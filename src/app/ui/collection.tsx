@@ -2,12 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+
 import {
   RenderImageContext,
   RenderImageProps,
   RowsPhotoAlbum,
 } from "react-photo-album";
 import "react-photo-album/rows.css";
+
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
+
+import LightboxImage from './lightboxImage';
 import LoadingSpinner from './loadingSpinner';
 import ErrorMessage from './errorMessage';
 
@@ -72,14 +79,13 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [index, setIndex] = useState(-1);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await fetch(`/api/portfolio/collections/${collection}`);
         const data = await response.json();
-
-        throw new Error('Test error');
 
         if (response.ok) {
           setImages(data.images);
@@ -129,6 +135,14 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
         photos={photos}
         render={{ image: renderNextImage }}
         rowConstraints={{ maxPhotos: 3 }}
+        onClick={({ index }) => setIndex(index)}
+      />
+      <Lightbox
+        slides={photos}
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        render={{ slide: LightboxImage }}
       />
     </div>
   );
