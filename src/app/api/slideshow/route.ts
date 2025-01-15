@@ -1,19 +1,6 @@
 import { NextResponse } from 'next/server';
-import { v2 as cloudinary } from 'cloudinary';
-
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET as string,
-});
-
-interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-  width: number;
-  height: number;
-  format: string;
-}
+import cloudinary from '@/lib/cloudinary';
+import { CloudinaryResource, ImageData } from '@/types';
 
 export async function GET() {
   console.time('API Route Total Time');
@@ -27,7 +14,7 @@ export async function GET() {
     .execute();
     console.timeEnd('Cloudinary Search Time');
 
-    const resources = result.resources;
+    const resources: CloudinaryResource[] = result.resources;
 
     if (!resources || resources.length === 0) {
       console.timeEnd('API Route Total Time');
@@ -37,15 +24,17 @@ export async function GET() {
       );
     }
 
-    const images = resources.map((resource: CloudinaryResource) => ({
+    const images: ImageData[] = resources.map(resource => ({
       public_id: resource.public_id,
-      secure_url: cloudinary.url(resource.secure_url, {
+      src: cloudinary.url(resource.secure_url, {
         fetch_format: 'auto',
         quality: 'auto',
       }),
       width: resource.width,
       height: resource.height,
       format: resource.format,
+      alt: resource.display_name,
+      title: resource.display_name,
     }));
 
     console.timeEnd('API Route Total Time');

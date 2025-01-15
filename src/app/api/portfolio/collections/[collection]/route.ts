@@ -1,19 +1,7 @@
 import { NextResponse } from 'next/server';
-import { v2 as cloudinary } from 'cloudinary';
-
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET as string,
-});
-
-interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-  width: number;
-  height: number;
-  format: string;
-}
+import { ResourceApiResponse } from 'cloudinary';
+import cloudinary from '@/lib/cloudinary';
+import { CloudinaryResource, ImageData } from '@/types';
 
 /**
  * GET /api/portfolio/collections/:collectionID
@@ -23,7 +11,8 @@ export async function GET(
   req: Request,
   { params }: { params: { collection: string } }
 ) {
-  const collection = (await params).collection;
+  console.time('API Route Total Time');
+  const { collection } = await params;
 
   if (!collection) {
     return NextResponse.json(
@@ -33,25 +22,33 @@ export async function GET(
   }
 
   try {
-    const { resources } = await cloudinary.search
-    .expression(`folder:${collection}/*`)
-    .execute();
+    console.time('Cloudinary Search Time');
+    const result: ResourceApiResponse = await cloudinary.api.resources_by_asset_folder(collection);
+    console.timeEnd('Cloudinary Search Time');
 
-    if (resources.length === 0) {
+    const resources: CloudinaryResource[] = result.resources;
+
+    if (!resources) {
+      console.timeEnd('API Route Total Time');
       return NextResponse.json(
         { error: 'No images found in this collection.' },
         { status: 404 }
       );
     }
 
-    const images = resources.map((resource: CloudinaryResource) => ({
+    const images: ImageData[] = resources.map(resource => ({
       public_id: resource.public_id,
-      secure_url: resource.secure_url,
+      src: cloudinary.url(resource.secure_url, {
+        fetch_format: 'auto',
+        quality: 'auto',
+      }),
       width: resource.width,
       height: resource.height,
       format: resource.format,
+      description: resource.display_name,
     }));
 
+    console.timeEnd('API Route Total Time');
     return NextResponse.json({ images }, { status: 200 });
   } catch (error) {
     console.error('Error fetching images from Cloudinary:', error);
