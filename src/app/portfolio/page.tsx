@@ -1,5 +1,5 @@
 import Portfolio
- from "../ui/portfolio";
+ from "../components/portfolio";
 const Page = () => {
   return (
       <Portfolio />

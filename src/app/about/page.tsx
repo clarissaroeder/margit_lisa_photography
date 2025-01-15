@@ -1,4 +1,4 @@
-import About from "../ui/about";
+import About from "../components/about";
 
 const Page = () => {
   return (

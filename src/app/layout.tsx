@@ -1,5 +1,5 @@
-import Navbar from "./ui/navbar";
-import { geistSans, geistMono, frank, prata } from "./ui/fonts";
+import Navbar from "./components/navbar";
+import { geistSans, geistMono, frank, prata } from "./components/fonts";
 import "./globals.css";
 
 export default function RootLayout({
