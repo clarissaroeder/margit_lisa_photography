@@ -11,3 +11,13 @@ export interface ImageData {
   alt?: string;
   title?: string;
 }
+
+export interface CloudinaryFolder {
+  name: string;
+  path: string;
+  external_id: string;
+}
+export interface TitleImageResult {
+  name: string;
+  titleImage: ImageData;
+}

@@ -8,10 +8,7 @@ export async function GET() {
     const tag = 'slideshow';
 
     console.time('Cloudinary Search Time');
-    const result = await cloudinary.search
-    .expression(`tags:${tag}`)
-    .sort_by('public_id', 'asc')
-    .execute();
+    const result = await cloudinary.api.resources_by_tag(tag);
     console.timeEnd('Cloudinary Search Time');
 
     const resources: CloudinaryResource[] = result.resources;
