@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { ResourceApiResponse } from 'cloudinary';
 import cloudinary from '@/lib/cloudinary';
 import { CloudinaryResource, ImageData } from '@/types';
@@ -8,12 +8,12 @@ import { CloudinaryResource, ImageData } from '@/types';
  * Fetches all images within a specific collection (folder) from Cloudinary.
  */
 export async function GET(
-  req: Request,
-  { params }: { params: { collection: string } }
+  req: NextRequest,
 ) {
   console.time('API Route Total Time');
-  const { collection } = await params;
-
+  const url = new URL(req.url);
+  const collection = url.pathname.split("/").pop();
+  
   if (!collection) {
     return NextResponse.json(
       { error: 'Collection ID is required.' },
