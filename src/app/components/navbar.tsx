@@ -82,28 +82,26 @@ const Navbar = () => {
 
         {/* Mobile Menu Panel */}
         {mobileMenuOpen && (
-          <div className="bg-white sm:hidden fixed inset-0 top-[72px] z-40">
-            <div className="h-full p-4 overflow-y-auto">
-              <ul className="space-y-6 pt-4 text-center">
-                {navLinks.map((link) => {
-                  const isActive = pathname.includes(link.href)
-                  return (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className={clsx(
-                          "text-l font-medium",
-                          isActive ? "text-custom-orange-2" : "text-gray-700"
-                        )}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+          <div className="bg-white sm:hidden fixed top-[64px] inset-0 h-full px-4 pt-12 z-40">
+            <ul className="space-y-6 text-center">
+              {navLinks.map((link) => {
+                const isActive = pathname.includes(link.href)
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={clsx(
+                        "text-l font-medium",
+                        isActive ? "text-custom-orange-2" : "text-gray-700"
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         )}
       </div>
