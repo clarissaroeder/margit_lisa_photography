@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <nav className="shadow-md z-50 font-[family-name:var(--font-geist-sans)]">
-      <div className="flex items-center justify-between h-16 sm:h-20 md:h-24 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between h-16 sm:h-20 md:h-24 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Logo */}
         <div>
           <Link href="/">
@@ -82,7 +82,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Panel */}
         {mobileMenuOpen && (
-          <div className="bg-white sm:hidden fixed top-[64px] inset-0 h-full px-4 pt-12 z-40">
+          <div className="bg-white opacity-85 sm:hidden fixed top-[64px] inset-0 h-full px-4 pt-12 z-40">
             <ul className="space-y-6 text-center">
               {navLinks.map((link) => {
                 const isActive = pathname.includes(link.href)
@@ -91,7 +91,7 @@ const Navbar = () => {
                     <Link
                       href={link.href}
                       className={clsx(
-                        "text-l font-medium",
+                        "text-l font-medium opacity-100",
                         isActive ? "text-custom-orange-2" : "text-gray-700"
                       )}
                       onClick={() => setMobileMenuOpen(false)}
