@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-
+import { useMediaQuery } from 'react-responsive';
 import { CldImage } from 'next-cloudinary';
 
 import {
@@ -22,6 +22,11 @@ import { ImageData } from '@/types';
 
 interface CollectionProps {
   collection: string;
+}
+
+interface ImageStackProps {
+  images: ImageData[];
+  onClick: (index: number) => void;
 }
 
 /**
@@ -47,14 +52,43 @@ const renderCldImage = (
       alt={alt}
       title={title}
       fill
-      // height={height}
-      // width={width}
       quality="auto"
       format="auto"
       loading="lazy"
+      sizes="(min-width: 1536px) 500px, (min-width: 1280px) 420px, (min-width: 1024px) 340px, (min-width: 768px) 230px, (min-width: 640px) 180px, 100vw"
     />
   </div>
 );
+
+/**
+ * Renders a mobile-friendly stack view of images
+ */
+const ImageStack: React.FC<ImageStackProps> = ({ images, onClick }) => {
+  return (
+    <div className="flex flex-col gap-4">
+      {images.map((image, index) => (
+        <div 
+          key={image.src} 
+          className="relative w-full cursor-pointer"
+          onClick={() => onClick(index)}
+        >
+          <div style={{ aspectRatio: `${image.width} / ${image.height}` }} className="w-full">
+            <CldImage
+              src={image.src}
+              alt={image.alt || ""}
+              title={image.title || ""}
+              fill
+              quality="auto"
+              format="auto"
+              loading="lazy"
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 /**
  * Collection Component
@@ -69,6 +103,7 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [index, setIndex] = useState(-1);
+  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -107,17 +142,17 @@ const Collection: React.FC<CollectionProps> = ({ collection }) => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Optional: Collection Title */}
-      {/* <h1 className="text-4xl font-bold mb-8 text-center capitalize">
-        {collection.title} Collection
-      </h1> */}
+      {isMobile ? (
+        <ImageStack images={images} onClick={setIndex} />
+      ) : (
+        <RowsPhotoAlbum
+          photos={images}
+          render={{ image: renderCldImage }}
+          rowConstraints={{ maxPhotos: 3 }}
+          onClick={({ index }) => setIndex(index)}
+        />
+      )}
 
-      <RowsPhotoAlbum
-        photos={images}
-        render={{ image: renderCldImage }}
-        rowConstraints={{ maxPhotos: 3 }}
-        onClick={({ index }) => setIndex(index)}
-      />
       <Lightbox
         slides={images}
         open={index >= 0}

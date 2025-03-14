@@ -1,6 +1,11 @@
 import Navbar from "./components/navbar";
-import { geistSans, geistMono, frank, prata } from "./components/fonts";
+import { geistSans, geistMono } from "./components/fonts";
 import "./globals.css";
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
 
 export default function RootLayout({
   children,
@@ -10,12 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${frank.variable} ${prata.variable} antialiased flex flex-col h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen`}
       >
-        <Navbar />
-        <main className="flex-1 overflow-auto">
-          {children}
-        </main>
+          <Navbar />
+          <main className="flex-1 overflow-auto">
+            {children}
+          </main>
       </body>
     </html>
   );

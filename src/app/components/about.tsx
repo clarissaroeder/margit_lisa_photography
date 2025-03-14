@@ -17,16 +17,17 @@ const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"about" | "achievements">("about");
 
   return (
-    <section className="bg-white dark:bg-gray-900 pt-16 py-12 font-[family-name:var(--font-geist-sans)]">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row gap-8">
+    <div className="pt-16 pb-12 mx-auto font-[family-name:var(--font-geist-sans)] max-w-7xl">
+      <div className="flex flex-col md:flex-row md:justify-center px-4 md:px-8 gap-8 lg:gap-12">
+   
           {/* Circular Image */}
-          <div className="relative w-40 h-40 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden mx-auto md:mx-0 md:mt-8">
+          <div className="relative w-40 h-40 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden mx-auto md:mx-0 md:mt-8">
             <Image
               src="/margit_lisa_roeder.jpg"
-              alt="Margit Lisa Röder"
-              layout="fill"
-              objectFit="cover"
+              alt="Margit Lisa Pinggera"
+              fill
+              sizes="(min-width: 1024px) 320px, (min-width: 768px) 288px, (min-width: 640px) 256px, 160px"
+              className="object-cover"
             />
           </div>
 
@@ -35,20 +36,20 @@ const About: React.FC = () => {
             {/* Tabs */}
             <div className="flex justify-center md:justify-start gap-6 mb-6">
               <button
-                className={`pb-2 px-4 text-lg font-[family-name:var(--font-geist-mono)] ${
+                className={`pb-2 px-4 text-sm xs:text-base sm:text-xl font-[family-name:var(--font-geist-mono)] ${
                   activeTab === "about"
                     ? "border-b-2 border-custom-orange-2 text-custom-orange-2"
-                    : "text-gray-600 dark:text-gray-300"
+                    : "text-gray-600"
                 }`}
                 onClick={() => setActiveTab("about")}
               >
-                Über Margit Lisa Röder
+                Über Margit Lisa Pinggera
               </button>
               <button
-                className={`pb-2 px-4 text-lg font-[family-name:var(--font-geist-mono)] ${
+                className={`pb-2 px-4 text-sm xs:text-base sm:text-xl font-[family-name:var(--font-geist-mono)] ${
                   activeTab === "achievements"
                     ? "border-b-2 border-custom-orange-2 text-custom-orange-2"
-                    : "text-gray-600 dark:text-gray-300"
+                    : "text-gray-600"
                 }`}
                 onClick={() => setActiveTab("achievements")}
               >
@@ -58,18 +59,18 @@ const About: React.FC = () => {
 
             {/* Content */}
             <div
-              className="text-gray-700 dark:text-gray-300 space-y-6 transition-all min-h-[12rem]" // Ensure fixed height
+              className="text-gray-700 space-y-6 transition-all min-h-[12rem]" // Ensure fixed height
             >
               {activeTab === "about" && (
                 <>
                   <p>
-                    Margit Lisa Röder, Jahrgang 1961, lebt mit ihrem Partner und ihrem Labradoodle
+                    Margit Lisa Pinggera, Jahrgang 1961, lebt mit ihrem Partner und ihrem Labradoodle
                     Mila in einem bezaubernden alten Pfarrhaus im Landkreis Rosenheim am Chiemsee.
                     Ihre Hobbys: Kochen und natürlich Fotografieren mit Nachbearbeitung und
                     Entwicklung in Photoshop.
                   </p>
                   <p>
-                    Margit Lisa Röders Faszination für die Fotografie wurde durch den 
+                    Margit Lisa Pinggeras Faszination für die Fotografie wurde durch den 
                     renommierten Künstler und Fotografen Heinz Teufel geweckt. Unter seiner
                     Anleitung in seiner „Schule des Sehens“ begann sie eine Auseinandersetzung mit der
                     Fotografie, die weit über die bloße Kameratechnik hinausging. Stattdessen taucht
@@ -78,7 +79,7 @@ const About: React.FC = () => {
                     Medium zur Reflexion über Natur, Menschlichkeit und Umwelt.
                   </p>
                   <p>
-                    Heute ist Margit Lisa Röder nicht nur eine leidenschaftliche
+                    Heute ist Margit Lisa Pinggera nicht nur eine leidenschaftliche
                     Architekturfotografin. Die Künstlerin fängt auch Elemente der Natur ein und
                     experimentiert mit Texturen und Farben. Sie transformiert und kombiniert diese,
                     um eine fiktive Natur zu schaffen, die teils üppig als auch extravagant wirkt.
@@ -90,7 +91,7 @@ const About: React.FC = () => {
                 <ul className="space-y-4">
                   {achievements.map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="flex-shrink-0 text-custom-orange-1 font-semibold mr-4">
+                      <span className="shrink-0 text-custom-orange-1 font-semibold mr-4">
                         {item.year}
                       </span>
                       <span>{item.description}</span>
@@ -100,9 +101,8 @@ const About: React.FC = () => {
               )}
             </div>
           </div>
-        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -64,7 +64,7 @@ const LightboxImage: React.FC<LightboxImageProps> = ({ slide, offset, rect }) =>
         loading="eager"
         draggable={false}
         // Uncomment and provide a blurDataURL if available
-        // placeholder={slide.blurDataURL ? "blur" : undefined}
+        // placeholder={slide.blurDataURL ? "blur-sm" : undefined}
         style={{
           objectFit: cover ? "cover" : "contain",
           cursor: click ? "zoom-in" : "default", // Changed cursor to indicate zoom
