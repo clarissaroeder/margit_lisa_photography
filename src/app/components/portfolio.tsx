@@ -52,12 +52,14 @@ const Portfolio = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {collections.map((collection, index) => (
           <Link href={`/portfolio/collections/${collection.name}`} key={index}>
-            <div className="relative overflow-hidden group cursor-pointer h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-xs">
+            <div className="relative overflow-hidden group cursor-pointer h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96">
               <Image
                 src={collection.titleImage.src}
                 alt={collection.name}
                 fill
+                sizes="(min-width: 1280px) 576px, (min-width: 1024px) 480px, (min-width: 768px) 384px, (min-width: 640px) 304px, 100vw"
                 className="object-cover transform transition-transform duration-300 group-hover:scale-105"
+                priority={index < 2}
               />
                 <div 
                   className={`

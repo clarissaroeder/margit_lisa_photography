@@ -25,7 +25,7 @@ const About: React.FC = () => {
             <Image
               src="/margit_lisa_roeder.jpg"
               alt="Margit Lisa Pinggera"
-              fill={true}
+              fill
               sizes="(min-width: 1024px) 320px, (min-width: 768px) 288px, (min-width: 640px) 256px, 160px"
               className="object-cover"
             />

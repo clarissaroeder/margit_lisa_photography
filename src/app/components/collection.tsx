@@ -55,6 +55,7 @@ const renderCldImage = (
       quality="auto"
       format="auto"
       loading="lazy"
+      sizes="(min-width: 1536px) 500px, (min-width: 1280px) 420px, (min-width: 1024px) 340px, (min-width: 768px) 230px, (min-width: 640px) 180px, 100vw"
     />
   </div>
 );
