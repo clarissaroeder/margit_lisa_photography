@@ -76,6 +76,7 @@ const Slideshow = () => {
           <Image 
             src={image.src}
             fill
+            sizes="100vw"
             className="object-cover"
             alt={image.alt || `Slide ${index + 1}`}
             priority={index === 0}
