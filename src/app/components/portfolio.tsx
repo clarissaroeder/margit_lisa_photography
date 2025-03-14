@@ -48,25 +48,31 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      {/* <h1 className="text-4xl font-bold mb-8 font-[family-name:var(--font-geist-mono)]">Portfolio</h1> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 max-w-7xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {collections.map((collection, index) => (
           <Link href={`/portfolio/collections/${collection.name}`} key={index}>
-            <div className="relative overflow-hidden group cursor-pointer h-80">
+            <div className="relative overflow-hidden group cursor-pointer h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-xs">
               <Image
                 src={collection.titleImage.src}
                 alt={collection.name}
                 fill
-                objectFit="cover"
-                className="transform transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transform transition-transform duration-300 group-hover:scale-105"
               />
-              <div 
-                className="absolute inset-0 flex items-center justify-center text-2xl text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100 font-extralight font-[family-name:var(--font-geist-sans)] uppercase"
-                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}
-              >
-                {collection.name}
-              </div>
+                <div 
+                  className={`
+                    absolute inset-0 flex items-center justify-center 
+                    text-2xl text-white font-extralight font-[family-name:var(--font-geist-sans)]
+                    uppercase tracking-wider
+
+                  bg-black/20 sm:bg-black/0 group-hover:bg-black/20
+
+                    opacity-100 sm:opacity-0 group-hover:opacity-100
+                    transition-opacity duration-300
+                    `}
+                >
+                  {collection.name}
+                </div>
             </div>
           </Link>
         ))}
