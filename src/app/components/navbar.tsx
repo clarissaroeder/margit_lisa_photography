@@ -24,14 +24,14 @@ const Navbar = () => {
             <div className="flex items-center text-l xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl">
               <span className="font-[family-name:var(--font-geist-mono)] font-bold">Margit Lisa</span>
               <span className="hidden 2xs:inline-block border-l border-gray-400 h-4 sm:h-8 md:h-10 lg:h-12 mx-2 md:mx-4 lg:mx-6"></span>
-              <span className="font-thin hidden 2xs:inline">Fine Photography</span>
+              <span className="font-thin hidden 2xs:inline">Fine Art Photography</span>
             </div>
           </Link>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden sm:block">
-          <ul className="flex sm:space-x-4 md:space-x-8 lg:space-x-12">
+          <ul className="flex sm:space-x-4 md:space-x-6 lg:space-x-12">
             {navLinks.map((link) => {
               const isActive = pathname.includes(link.href)
 

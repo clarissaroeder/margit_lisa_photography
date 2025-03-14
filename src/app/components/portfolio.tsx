@@ -73,7 +73,7 @@ const Portfolio = () => {
                     transition-opacity duration-300
                     `}
                 >
-                  {collection.name}
+                  {collection.name.replaceAll('-', ' ')}
                 </div>
             </div>
           </Link>
