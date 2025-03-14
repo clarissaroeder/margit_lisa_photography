@@ -90,7 +90,7 @@ const About: React.FC = () => {
                 <ul className="space-y-4">
                   {achievements.map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="flex-shrink-0 text-custom-orange-1 font-semibold mr-4">
+                      <span className="shrink-0 text-custom-orange-1 font-semibold mr-4">
                         {item.year}
                       </span>
                       <span>{item.description}</span>

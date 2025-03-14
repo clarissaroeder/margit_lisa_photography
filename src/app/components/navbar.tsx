@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <div className="flex-shrink-0 font-[family-name:var(--font-geist-mono)]">
+          <div className="shrink-0 font-[family-name:var(--font-geist-mono)]">
             <Link href="/" className="text-3xl font-bold">
             <div className="flex items-center">
               <span>Margit Lisa</span>

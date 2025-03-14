@@ -68,7 +68,7 @@ const ContactForm = () => {
       </div>
 
       {isSubmitted ? (
-        <div className="mt-10 max-w-xl mx-auto p-6 bg-lime-100 border border-lime-300 text-lime-700 rounded">
+        <div className="mt-10 max-w-xl mx-auto p-6 bg-lime-100 border border-lime-300 text-lime-700 rounded-sm">
           <div className="flex items-center justify-center">
             <SparklesIcon className="h-6 w-6 mr-2" aria-hidden="true" />
             Your message was sent successfully! Thank you for reaching out.
@@ -197,7 +197,7 @@ const ContactForm = () => {
           <button
             type="submit"
             className={clsx(
-              'block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm',
+              'block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs',
               'bg-custom-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom-orange-2',
               {
                 'opacity-50 cursor-not-allowed': isSubmitting,
