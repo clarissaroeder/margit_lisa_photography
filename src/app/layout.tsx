@@ -2,6 +2,11 @@ import Navbar from "./components/navbar";
 import { geistSans, geistMono, frank, prata } from "./components/fonts";
 import "./globals.css";
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
