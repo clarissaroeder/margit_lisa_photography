@@ -6,6 +6,9 @@
 
   --color-custom-orange-1: #f25430;
   --color-custom-orange-2: #a63921;
+
+  --breakpoint-2xs: 20rem;
+  --breakpoint-xs: 30rem;
 }
 
 /*
